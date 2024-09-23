@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tk_json &mdash; lab 2 00.00.01 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d7bb8d4d"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lab 2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">lab2_tamer_safa</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lab 2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">tk_json</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for tk_json</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">ttk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">messagebox</span>
+
+<span class="kn">from</span> <span class="nn">classes</span> <span class="kn">import</span> <span class="n">Student</span><span class="p">,</span> <span class="n">Instructor</span><span class="p">,</span> <span class="n">Course</span>
+
+<span class="c1"># Part 2</span>
+
+<span class="c1"># Step 1</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+<span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;School Management System&#39;</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;800x600&quot;</span><span class="p">)</span>
+
+<span class="n">notebook</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Notebook</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="n">notebook</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+<span class="n">main_tab</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">notebook</span><span class="p">)</span>
+<span class="n">records_tab</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">notebook</span><span class="p">)</span>
+
+<span class="n">notebook</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Main&quot;</span><span class="p">)</span>
+<span class="n">notebook</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">records_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Records&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 2</span>
+<span class="n">students</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">instructors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">courses</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># sample_student = Student(&quot;John&quot;, 25, &quot;p3J8Z@example.com&quot;, 1)</span>
+<span class="c1"># sample_instructor = Instructor(&quot;Jane&quot;, 30, &quot;p3J8Z@example.com&quot;, 1)</span>
+<span class="c1"># sample_course = Course(1, &quot;Math&quot;, sample_instructor)</span>
+<span class="c1"># students.append(sample_student)</span>
+<span class="c1"># instructors.append(sample_instructor)</span>
+<span class="c1"># courses.append(sample_course) </span>
+
+<span class="n">DATA_FILE</span> <span class="o">=</span> <span class="s2">&quot;data.json&quot;</span>
+
+<div class="viewcode-block" id="update_course_combobox">
+<a class="viewcode-back" href="../tk_json.html#tk_json.update_course_combobox">[docs]</a>
+<span class="k">def</span> <span class="nf">update_course_combobox</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates the combobox elements in the UI with the latest list of available courses from the courses list.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">course_combobox</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">course</span><span class="o">.</span><span class="n">course_name</span> <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">courses</span><span class="p">:</span>
+        <span class="n">course_combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">courses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">course_name</span><span class="p">)</span>  <span class="c1"># Set default value to first course</span>
+        <span class="n">course_combobox_for_instructor</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">courses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">course_name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">course_combobox</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;No Courses Available&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_data">
+<a class="viewcode-back" href="../tk_json.html#tk_json.save_data">[docs]</a>
+<span class="k">def</span> <span class="nf">save_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves the students, instructors, and courses data to a JSON file. This includes information about enrolled students </span>
+<span class="sd">    and assigned instructors for courses.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises IOError: If there is an issue writing to the file.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;students&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span> <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">students</span><span class="p">],</span>
+        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">instructor</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span> <span class="k">for</span> <span class="n">instructor</span> <span class="ow">in</span> <span class="n">instructors</span><span class="p">],</span>
+        <span class="s2">&quot;courses&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;course_id&quot;</span><span class="p">:</span> <span class="n">course</span><span class="o">.</span><span class="n">course_id</span><span class="p">,</span>
+                <span class="s2">&quot;course_name&quot;</span><span class="p">:</span> <span class="n">course</span><span class="o">.</span><span class="n">course_name</span><span class="p">,</span>
+                <span class="s2">&quot;instructor&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">course</span><span class="o">.</span><span class="n">instructor</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span> <span class="k">if</span> <span class="n">course</span><span class="o">.</span><span class="n">instructor</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  
+                <span class="s2">&quot;enrolled_students&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span> <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">course</span><span class="o">.</span><span class="n">enrolled_students</span><span class="p">]</span> 
+            <span class="p">}</span> <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DATA_FILE</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Data saved successfully!&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;An error occurred while saving: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1"># Function to load data from JSON file and populate the lists</span>
+<div class="viewcode-block" id="load_data">
+<a class="viewcode-back" href="../tk_json.html#tk_json.load_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads students, instructors, and courses data from a JSON file and populates the application with the loaded data. </span>
+<span class="sd">    Also reassigns enrolled students to their respective courses.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises FileNotFoundError: If the data file does not exist.</span>
+<span class="sd">    :raises IOError: If there is an issue reading from the file.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">students</span><span class="p">,</span> <span class="n">instructors</span><span class="p">,</span> <span class="n">courses</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">DATA_FILE</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># Load students</span>
+        <span class="n">students</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Student</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">student</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">student</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="n">student</span><span class="p">[</span><span class="s1">&#39;student_id&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;students&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Load instructors</span>
+        <span class="n">instructors</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Instructor</span><span class="p">(</span><span class="n">instructor</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">instructor</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">instructor</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="n">instructor</span><span class="p">[</span><span class="s1">&#39;instructor_id&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">instructor</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;instructors&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Load courses </span>
+        <span class="n">courses</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">Course</span><span class="p">(</span>
+                <span class="n">course</span><span class="p">[</span><span class="s1">&#39;course_id&#39;</span><span class="p">],</span>
+                <span class="n">course</span><span class="p">[</span><span class="s1">&#39;course_name&#39;</span><span class="p">],</span>
+                <span class="n">Instructor</span><span class="p">(</span><span class="n">course</span><span class="p">[</span><span class="s1">&#39;instructor&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">course</span><span class="p">[</span><span class="s1">&#39;instructor&#39;</span><span class="p">][</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">course</span><span class="p">[</span><span class="s1">&#39;instructor&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="n">course</span><span class="p">[</span><span class="s1">&#39;instructor&#39;</span><span class="p">][</span><span class="s1">&#39;instructor_id&#39;</span><span class="p">])</span>
+            <span class="p">)</span> <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;courses&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Re-link enrolled students to courses</span>
+        <span class="k">for</span> <span class="n">course_data</span><span class="p">,</span> <span class="n">course</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;courses&quot;</span><span class="p">,</span> <span class="p">[]),</span> <span class="n">courses</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">student_data</span> <span class="ow">in</span> <span class="n">course_data</span><span class="p">[</span><span class="s1">&#39;enrolled_students&#39;</span><span class="p">]:</span>
+                <span class="n">student</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">students</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">student_id</span> <span class="o">==</span> <span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;student_id&#39;</span><span class="p">]),</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">student</span><span class="p">:</span>
+                    <span class="n">course</span><span class="o">.</span><span class="n">add_student</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>  <span class="c1"># Re-enroll the student</span>
+
+        <span class="n">refresh_treeview</span><span class="p">()</span>  
+        <span class="n">update_course_combobox</span><span class="p">()</span>
+
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="s2">&quot;Data loaded successfully!&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">,</span> <span class="s2">&quot;No saved data found.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;An error occurred while loading: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="student_window">
+<a class="viewcode-back" href="../tk_json.html#tk_json.student_window">[docs]</a>
+<span class="k">def</span> <span class="nf">student_window</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens a new window in the UI to allow adding a new student to the application, including their name, age, email, </span>
+<span class="sd">    and student ID.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_student</span><span class="p">():</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">student_name_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">age_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>  
+        <span class="n">email</span> <span class="o">=</span> <span class="n">student_email_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">student_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="n">students</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Student</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">student_id</span><span class="p">))</span>  
+        <span class="n">student_window</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    
+    <span class="n">student_window</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+    <span class="n">student_window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Add Student&quot;</span><span class="p">)</span>
+    <span class="n">student_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;300x500&quot;</span><span class="p">)</span>
+    
+    <span class="n">student_name_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">student_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+    <span class="n">student_name_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">student_name_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">student_window</span><span class="p">)</span>
+    <span class="n">student_name_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">age_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">student_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+    <span class="n">age_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">age_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">student_window</span><span class="p">)</span>
+    <span class="n">age_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">student_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Student ID&quot;</span><span class="p">)</span>
+    <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">student_window</span><span class="p">)</span>
+    <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">student_email_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">student_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Email&quot;</span><span class="p">)</span>
+    <span class="n">student_email_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">student_email_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">student_window</span><span class="p">)</span>
+    <span class="n">student_email_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">submit_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">student_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Submit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">add_student</span><span class="p">)</span>
+    <span class="n">submit_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="instructor_window">
+<a class="viewcode-back" href="../tk_json.html#tk_json.instructor_window">[docs]</a>
+<span class="k">def</span> <span class="nf">instructor_window</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens a new window in the UI to allow adding a new instructor to the application, including their name, age, email, </span>
+<span class="sd">    and instructor ID.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_instructor</span><span class="p">():</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">instructor_name_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">age_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="n">instructor_email_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="n">instructor_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="n">instructors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Instructor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">instructor_id</span><span class="p">))</span>  
+        <span class="n">instructor_window</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="n">instructor_window</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+    <span class="n">instructor_window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Add Instructor&quot;</span><span class="p">)</span>
+    <span class="n">instructor_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;300x500&quot;</span><span class="p">)</span>
+    
+    <span class="n">instructor_name_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+    <span class="n">instructor_name_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">instructor_name_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">)</span>
+    <span class="n">instructor_name_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">age_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+    <span class="n">age_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">age_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">)</span>
+    <span class="n">age_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Instructor ID&quot;</span><span class="p">)</span>
+    <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">)</span>
+    <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">instructor_email_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Email&quot;</span><span class="p">)</span>
+    <span class="n">instructor_email_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">instructor_email_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">)</span>
+    <span class="n">instructor_email_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">submit_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">instructor_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Submit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">add_instructor</span><span class="p">)</span>
+    <span class="n">submit_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="course_window">
+<a class="viewcode-back" href="../tk_json.html#tk_json.course_window">[docs]</a>
+<span class="k">def</span> <span class="nf">course_window</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens a new window in the UI to allow adding a new course to the application, including its course ID and course name. </span>
+<span class="sd">    Assigns the first available instructor by default.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_course</span><span class="p">():</span>
+        <span class="n">course_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">course_name</span> <span class="o">=</span> <span class="n">course_name_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="n">instructor</span> <span class="o">=</span> <span class="n">instructors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">instructors</span> <span class="k">else</span> <span class="kc">None</span>  
+        <span class="n">courses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Course</span><span class="p">(</span><span class="n">course_id</span><span class="p">,</span> <span class="n">course_name</span><span class="p">,</span> <span class="n">instructor</span><span class="p">))</span>
+        <span class="n">course_window</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="n">course_window</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+    <span class="n">course_window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Add Course&quot;</span><span class="p">)</span>
+    <span class="n">course_window</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;300x200&quot;</span><span class="p">)</span>
+
+    <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">course_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Course ID:&quot;</span><span class="p">)</span>
+    <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">course_window</span><span class="p">)</span>
+    <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">course_name_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">course_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Course Name:&quot;</span><span class="p">)</span>
+    <span class="n">course_name_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">course_name_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">course_window</span><span class="p">)</span>
+    <span class="n">course_name_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">submit_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">course_window</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Submit&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">add_course</span><span class="p">)</span>
+    <span class="n">submit_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></div>
+
+
+<span class="n">option_button_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">option_button_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;ne&quot;</span><span class="p">)</span>
+
+<span class="n">save_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">option_button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Save Data&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">save_data</span><span class="p">)</span>
+<span class="n">save_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">load_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">option_button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Load Data&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">load_data</span><span class="p">)</span>
+<span class="n">load_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">add_button_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">add_button_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+
+<span class="n">student_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">add_button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Add Student&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">student_window</span><span class="p">)</span>
+<span class="n">student_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">instructor_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">add_button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Add Instructor&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">instructor_window</span><span class="p">)</span>
+<span class="n">instructor_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">course_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">add_button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Add Course&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">course_window</span><span class="p">)</span>
+<span class="n">course_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Step 3</span>
+<div class="viewcode-block" id="register_course">
+<a class="viewcode-back" href="../tk_json.html#tk_json.register_course">[docs]</a>
+<span class="k">def</span> <span class="nf">register_course</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers a student for a course by adding the student to the course&#39;s enrolled students list. Ensures the student and </span>
+<span class="sd">    course exist before enrollment.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises ValueError: If the student or course is not found.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">student_name</span> <span class="o">=</span> <span class="n">student_name_for_course_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">course_name</span> <span class="o">=</span> <span class="n">selected_course</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+    <span class="n">student</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">course</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Find the student and course objects by name</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">student_name</span><span class="p">:</span>
+            <span class="n">student</span> <span class="o">=</span> <span class="n">s</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">course_name</span> <span class="o">==</span> <span class="n">course_name</span><span class="p">:</span>
+            <span class="n">course</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">student</span> <span class="ow">and</span> <span class="n">course</span><span class="p">:</span>
+        <span class="n">course</span><span class="o">.</span><span class="n">add_student</span><span class="p">(</span><span class="n">student</span><span class="p">)</span></div>
+
+
+
+<span class="n">course_registration_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Student Registration for Course&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Helvetica&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="n">justify</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">course_registration_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<span class="n">student_name_for_course_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Student Name&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">student_name_for_course_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="n">student_name_for_course_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">student_name_for_course_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Dropdown for selecting a course</span>
+<span class="n">selected_course</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">course_combobox</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">selected_course</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">courses</span><span class="p">:</span>
+    <span class="n">course_combobox</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">course</span><span class="o">.</span><span class="n">course_name</span> <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">]</span>
+    <span class="n">selected_course</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">courses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">course_name</span><span class="p">)</span>  <span class="c1"># Set default value to first course</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">course_combobox</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;No Courses Available&quot;</span><span class="p">]</span>
+    <span class="n">selected_course</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;No Courses Available&quot;</span><span class="p">)</span>
+
+<span class="n">course_dropdown_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Select Course&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">course_dropdown_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="n">course_combobox</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">register_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Register&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">register_course</span><span class="p">)</span>
+<span class="n">register_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 4</span>
+<div class="viewcode-block" id="assign_instructor_to_course">
+<a class="viewcode-back" href="../tk_json.html#tk_json.assign_instructor_to_course">[docs]</a>
+<span class="k">def</span> <span class="nf">assign_instructor_to_course</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns an instructor to a course by setting the course&#39;s instructor field. Ensures both the instructor and course exist </span>
+<span class="sd">    before assignment.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises ValueError: If the instructor or course is not found.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">instructor_name</span> <span class="o">=</span> <span class="n">instructor_name_for_course_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">selected_course_name</span> <span class="o">=</span> <span class="n">selected_course_for_instructor</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+    <span class="n">instructor</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">course</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Find the instructor and course objects by name</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">instructors</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">instructor_name</span><span class="p">:</span>
+            <span class="n">instructor</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">course_name</span> <span class="o">==</span> <span class="n">selected_course_name</span><span class="p">:</span>
+            <span class="n">course</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="k">break</span>  
+
+    <span class="k">if</span> <span class="n">instructor</span> <span class="ow">and</span> <span class="n">course</span><span class="p">:</span>
+        <span class="n">course</span><span class="o">.</span><span class="n">instructor</span> <span class="o">=</span> <span class="n">instructor</span></div>
+
+
+<span class="n">instructor_assignment_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Instructor Assignment to Course&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Helvetica&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">instructor_assignment_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<span class="n">instructor_name_for_course_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Instructor Name&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">instructor_name_for_course_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="n">instructor_name_for_course_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">instructor_name_for_course_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Dropdown for selecting a course for the instructor</span>
+<span class="n">selected_course_for_instructor</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">(</span><span class="n">main_tab</span><span class="p">)</span>
+<span class="n">course_combobox_for_instructor</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Combobox</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">selected_course_for_instructor</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">courses</span><span class="p">:</span>
+    <span class="n">course_combobox_for_instructor</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">course</span><span class="o">.</span><span class="n">course_name</span> <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">]</span>
+    <span class="n">selected_course_for_instructor</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">courses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">course_name</span><span class="p">)</span>  <span class="c1"># Set default value to first course</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">course_combobox_for_instructor</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;No Courses Available&quot;</span><span class="p">]</span>
+    <span class="n">selected_course_for_instructor</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;No Courses Available&quot;</span><span class="p">)</span>
+
+<span class="n">course_dropdown_for_instructor_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Select Course&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">course_dropdown_for_instructor_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="n">course_combobox_for_instructor</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">assign_instructor_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">main_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Assign&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">assign_instructor_to_course</span><span class="p">)</span>
+<span class="n">assign_instructor_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="refresh_treeview">
+<a class="viewcode-back" href="../tk_json.html#tk_json.refresh_treeview">[docs]</a>
+<span class="k">def</span> <span class="nf">refresh_treeview</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Refreshes the Treeview UI element to display the most up-to-date information about students, instructors, and courses.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">display_records</span><span class="p">()</span></div>
+
+
+<span class="c1"># Step 5</span>
+<div class="viewcode-block" id="delete_record">
+<a class="viewcode-back" href="../tk_json.html#tk_json.delete_record">[docs]</a>
+<span class="k">def</span> <span class="nf">delete_record</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes the selected record (student, instructor, or course) from the respective list and refreshes the UI. Ensures the </span>
+<span class="sd">    record exists before deletion.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises ValueError: If no record is selected or if the record is not found.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">selected_item</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">selected_item</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Selection Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Please select a record to delete.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="n">item</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">selected_item</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span>
+    <span class="n">record_type</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">student</span><span class="o">.</span><span class="n">student_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">students</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+                <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">instructor</span> <span class="ow">in</span> <span class="n">instructors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">instructor</span><span class="o">.</span><span class="n">instructor_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">instructors</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">instructor</span><span class="p">)</span>
+                <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">course</span><span class="o">.</span><span class="n">course_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">courses</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">course</span><span class="p">)</span>
+                <span class="k">break</span>
+    
+    <span class="n">refresh_treeview</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="edit_record_popup">
+<a class="viewcode-back" href="../tk_json.html#tk_json.edit_record_popup">[docs]</a>
+<span class="k">def</span> <span class="nf">edit_record_popup</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Opens a popup window to edit the selected student, instructor, or course. Updates the selected record with the new values </span>
+<span class="sd">    and refreshes the UI after saving.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises ValueError: If no record is selected.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">selected_item</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">selected_item</span><span class="p">:</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showwarning</span><span class="p">(</span><span class="s2">&quot;Selection Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Please select a record to edit.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="n">item</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">selected_item</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]</span>
+    <span class="n">record_type</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Find the selected instance</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">student</span><span class="o">.</span><span class="n">student_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">student</span>
+                <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">instructor</span> <span class="ow">in</span> <span class="n">instructors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">instructor</span><span class="o">.</span><span class="n">instructor_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">instructor</span>
+                <span class="k">break</span>
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">course</span><span class="o">.</span><span class="n">course_id</span> <span class="o">==</span> <span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">course</span>
+                <span class="k">break</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">instance</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Create a popup window for editing the selected record</span>
+    <span class="n">popup</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Toplevel</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">popup</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Edit </span><span class="si">{</span><span class="n">record_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">popup</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="s2">&quot;300x400&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Labels and Entry fields for editing</span>
+    <span class="n">name_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Name:&quot;</span><span class="p">)</span>
+    <span class="n">name_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">name_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
+    <span class="n">name_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">name_entry</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># Prepopulate with the current name</span>
+
+    <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span> <span class="ow">or</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+        <span class="n">age_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Age:&quot;</span><span class="p">)</span>
+        <span class="n">age_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">age_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
+        <span class="n">age_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">age_entry</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span><span class="p">:</span>
+        <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Student ID:&quot;</span><span class="p">)</span>
+        <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">student_id</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+        <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Instructor ID:&quot;</span><span class="p">)</span>
+        <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">instructor_id</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+        <span class="n">id_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Course ID:&quot;</span><span class="p">)</span>
+        <span class="n">id_label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">popup</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">id_entry</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">course_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">save_changes</span><span class="p">():</span>
+        <span class="c1"># Update instance with new values</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span> <span class="ow">or</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">age_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Student&quot;</span><span class="p">:</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">student_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Instructor&quot;</span><span class="p">:</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">instructor_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="n">record_type</span> <span class="o">==</span> <span class="s2">&quot;Course&quot;</span><span class="p">:</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">course_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="n">refresh_treeview</span><span class="p">()</span>
+        <span class="n">popup</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+    <span class="n">save_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Save Changes&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">save_changes</span><span class="p">)</span>
+    <span class="n">save_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="display_records">
+<a class="viewcode-back" href="../tk_json.html#tk_json.display_records">[docs]</a>
+<span class="k">def</span> <span class="nf">display_records</span><span class="p">(</span><span class="n">search_term</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the records (students, instructors, courses) in the Treeview UI element, filtered by the provided search term. </span>
+<span class="sd">    Searches by name or ID.</span>
+<span class="sd">    </span>
+<span class="sd">    :param search_term: The term used to filter the records by name or ID, defaults to an empty string for no filter.</span>
+<span class="sd">    :type search_term: str, optional</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Clear the tree</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">get_children</span><span class="p">():</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="n">search_term</span> <span class="o">=</span> <span class="n">search_term</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># Case-insensitive search</span>
+
+    <span class="c1"># Display Students</span>
+    <span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="n">student</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">student_id</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Student&quot;</span><span class="p">,</span> <span class="n">student</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">student</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">student</span><span class="o">.</span><span class="n">student_id</span><span class="p">))</span>
+
+    <span class="c1"># Display Instructors</span>
+    <span class="k">for</span> <span class="n">instructor</span> <span class="ow">in</span> <span class="n">instructors</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="n">instructor</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">instructor</span><span class="o">.</span><span class="n">instructor_id</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Instructor&quot;</span><span class="p">,</span> <span class="n">instructor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">instructor</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">instructor</span><span class="o">.</span><span class="n">instructor_id</span><span class="p">))</span>
+
+    <span class="c1"># Display Courses</span>
+    <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="n">course</span><span class="o">.</span><span class="n">course_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">search_term</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">course</span><span class="o">.</span><span class="n">course_id</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Course&quot;</span><span class="p">,</span> <span class="n">course</span><span class="o">.</span><span class="n">course_name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">course</span><span class="o">.</span><span class="n">course_id</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="search_records">
+<a class="viewcode-back" href="../tk_json.html#tk_json.search_records">[docs]</a>
+<span class="k">def</span> <span class="nf">search_records</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Searches for records based on the input in the search bar and displays them in the UI.</span>
+<span class="sd">    </span>
+<span class="sd">    :return: None</span>
+<span class="sd">    :rtype: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">search_term</span> <span class="o">=</span> <span class="n">search_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> 
+    <span class="n">display_records</span><span class="p">(</span><span class="n">search_term</span><span class="p">)</span></div>
+
+
+<span class="c1"># Search and display widgets</span>
+<span class="n">search_entry</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">records_tab</span><span class="p">)</span>
+<span class="n">search_entry</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+<span class="n">search_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">records_tab</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Search&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">search_records</span><span class="p">)</span>
+<span class="n">search_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create Treeview widget in the &quot;Records&quot; tab</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Treeview</span><span class="p">(</span><span class="n">records_tab</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;ID&quot;</span><span class="p">),</span> <span class="n">show</span><span class="o">=</span><span class="s2">&quot;headings&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Type&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add scrollbars to the Treeview</span>
+<span class="n">scrollbar_y</span> <span class="o">=</span> <span class="n">ttk</span><span class="o">.</span><span class="n">Scrollbar</span><span class="p">(</span><span class="n">records_tab</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">tree</span><span class="o">.</span><span class="n">yview</span><span class="p">)</span>
+<span class="n">scrollbar_y</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">yscrollcommand</span><span class="o">=</span><span class="n">scrollbar_y</span><span class="o">.</span><span class="n">set</span><span class="p">)</span>
+
+<span class="n">button_frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">records_tab</span><span class="p">)</span>
+<span class="n">button_frame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">edit_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Edit Record&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">edit_record_popup</span><span class="p">)</span>
+<span class="n">edit_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">delete_button</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">button_frame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Delete Record&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">delete_record</span><span class="p">)</span>
+<span class="n">delete_button</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">display_records</span><span class="p">()</span>
+
+<span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, tamer safa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

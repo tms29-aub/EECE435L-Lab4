@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tk_db module &mdash; lab 2 00.00.01 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d7bb8d4d"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tk_json module" href="tk_json.html" />
+    <link rel="prev" title="classes module" href="classes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            lab 2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lab2_tamer_safa</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="classes.html">classes module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tk_db module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.assign_instructor_to_course"><code class="docutils literal notranslate"><span class="pre">assign_instructor_to_course()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.backup_data"><code class="docutils literal notranslate"><span class="pre">backup_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.course_window"><code class="docutils literal notranslate"><span class="pre">course_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.delete_record"><code class="docutils literal notranslate"><span class="pre">delete_record()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.display_records"><code class="docutils literal notranslate"><span class="pre">display_records()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.edit_record_popup"><code class="docutils literal notranslate"><span class="pre">edit_record_popup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.init_db"><code class="docutils literal notranslate"><span class="pre">init_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.instructor_window"><code class="docutils literal notranslate"><span class="pre">instructor_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.refresh_treeview"><code class="docutils literal notranslate"><span class="pre">refresh_treeview()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.register_course"><code class="docutils literal notranslate"><span class="pre">register_course()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.search_records"><code class="docutils literal notranslate"><span class="pre">search_records()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.student_window"><code class="docutils literal notranslate"><span class="pre">student_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tk_db.update_course_combobox"><code class="docutils literal notranslate"><span class="pre">update_course_combobox()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tk_json.html">tk_json module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lab 2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">lab2_tamer_safa</a></li>
+      <li class="breadcrumb-item active">tk_db module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tk_db.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-tk_db">
+<span id="tk-db-module"></span><h1>tk_db module<a class="headerlink" href="#module-tk_db" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.assign_instructor_to_course">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">assign_instructor_to_course</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#assign_instructor_to_course"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.assign_instructor_to_course" title="Link to this definition"></a></dt>
+<dd><p>Assigns an instructor to a course in the database by updating the ‘courses’ table with the instructor’s ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the instructor or course does not exist.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.backup_data">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">backup_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#backup_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.backup_data" title="Link to this definition"></a></dt>
+<dd><p>Creates a backup of the current database by copying the data to a separate backup database file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sqlite3.Error</strong> – If there is an issue with the backup process.</p></li>
+<li><p><strong>Exception</strong> – If any other errors occur during the backup.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.course_window">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">course_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#course_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.course_window" title="Link to this definition"></a></dt>
+<dd><p>Opens a new window in the UI to allow adding a new course to the database, including details such as
+course ID, course name, and instructor assignment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.delete_record">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">delete_record</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#delete_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.delete_record" title="Link to this definition"></a></dt>
+<dd><p>Deletes a selected record from the database (student, instructor, or course) and refreshes the UI.
+Ensures associated enrollments or course assignments are properly handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sqlite3.Error</strong> – If there is an issue deleting the record.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.display_records">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">display_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_term</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#display_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.display_records" title="Link to this definition"></a></dt>
+<dd><p>Displays records in the Treeview UI element, filtered by a search term if provided.
+Fetches students, instructors, and courses from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>search_term</strong> (<em>str</em><em>, </em><em>optional</em>) – The term used to filter the records by name or ID, defaults to an empty string for no filter.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.edit_record_popup">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">edit_record_popup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#edit_record_popup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.edit_record_popup" title="Link to this definition"></a></dt>
+<dd><p>Opens a popup window to edit the selected record (student, instructor, or course) in the database.
+Updates the record and refreshes the UI upon saving changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.init_db">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">init_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#init_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.init_db" title="Link to this definition"></a></dt>
+<dd><p>Initializes the database by checking if the necessary tables (‘students’, ‘instructors’, ‘courses’, ‘enrollments’)
+exist, and creates them if they do not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sqlite3.Error</strong> – If there is an issue creating or interacting with the database.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.instructor_window">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">instructor_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#instructor_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.instructor_window" title="Link to this definition"></a></dt>
+<dd><p>Opens a new window in the UI to allow adding a new instructor to the database, including details such as
+name, age, email, and instructor ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.refresh_treeview">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">refresh_treeview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#refresh_treeview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.refresh_treeview" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.register_course">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">register_course</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#register_course"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.register_course" title="Link to this definition"></a></dt>
+<dd><p>Registers a student for a course in the database by adding a record to the ‘enrollments’ table.
+Checks if the student and course exist and whether the student is already registered before inserting the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the student or course does not exist or if the student is already enrolled.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.search_records">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">search_records</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#search_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.search_records" title="Link to this definition"></a></dt>
+<dd><p>Searches for records based on the input in the search bar and displays them in the UI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.student_window">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">student_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#student_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.student_window" title="Link to this definition"></a></dt>
+<dd><p>Opens a new window in the UI to allow adding a new student to the database, including details such as
+name, age, email, and student ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tk_db.update_course_combobox">
+<span class="sig-prename descclassname"><span class="pre">tk_db.</span></span><span class="sig-name descname"><span class="pre">update_course_combobox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/tk_db.html#update_course_combobox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tk_db.update_course_combobox" title="Link to this definition"></a></dt>
+<dd><p>Updates the combobox elements in the UI with the latest list of available courses from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="classes.html" class="btn btn-neutral float-left" title="classes module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tk_json.html" class="btn btn-neutral float-right" title="tk_json module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, tamer safa.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
